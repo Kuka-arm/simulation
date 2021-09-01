@@ -12,6 +12,7 @@ public class Action
     {
         this.AxisRotations = axisRotations;
     }
+
     public Action() { }
 
     public override string ToString()
