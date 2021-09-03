@@ -12,6 +12,11 @@ public class ArmMovement : MonoBehaviour
 
     SavedPositions savedPoints; // Reference to the saved Positions parent
 
+    public Transform gripA;
+    public Transform gripB;
+    public Transform blockParent;
+    public Transform currentlyGripped;
+
     // To apply rotation direction
     bool positive = true;
 
@@ -68,6 +73,16 @@ public class ArmMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Comma))
         {
             SavePoint();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Grip();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GripRelease();
         }
     }
 
@@ -193,5 +208,20 @@ public class ArmMovement : MonoBehaviour
         {
             armParts[i].GetComponent<ArmPiece>().target = targetRotation[i];
         }
+    }
+
+    public void Grip()
+    {
+        if (gripA.GetComponent<GripDetection>().touching != null && gripB.GetComponent<GripDetection>().touching != null)
+        {
+            currentlyGripped = gripA.GetComponent<GripDetection>().touching.transform;
+            currentlyGripped.parent = armParts[5];
+        }
+    }
+
+    public void GripRelease()
+    {
+        currentlyGripped.parent = blockParent;
+        currentlyGripped.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

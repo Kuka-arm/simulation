@@ -12,6 +12,7 @@ TagManager:
   - 6
   - SavedPoints
   - Kuka
+  - block
   layers:
   - Default
   - TransparentFX
