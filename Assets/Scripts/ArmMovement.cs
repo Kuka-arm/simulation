@@ -194,7 +194,7 @@ public class ArmMovement : MonoBehaviour
             newRotations[i] = armParts[i].GetComponent<ArmPiece>().target;
         }
 
-        actions.Add(new Action(newRotations));
+        actions.Add(new Position(newRotations));
 
         savedPoints.UpdateUI(actions.ToArray());
     }

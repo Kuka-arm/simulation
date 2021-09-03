@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Action
 {
     Quaternion[] axisRotations;
@@ -15,8 +14,7 @@ public class Action
 
     public Action() { }
 
-    public override string ToString()
+    public virtual void DoAction(Transform kuka, int index)
     {
-        return $"{axisRotations[0]}";
     }
 }

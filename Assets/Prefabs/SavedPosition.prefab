@@ -280,7 +280,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8721027937093716037}
         m_TargetAssemblyTypeName: PositionData, Assembly-CSharp
-        m_MethodName: GoToPos
+        m_MethodName: DoAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

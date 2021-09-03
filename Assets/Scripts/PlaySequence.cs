@@ -42,7 +42,7 @@ public class PlaySequence : MonoBehaviour
 
             if (!performed) // Start performing the action
             {
-                posNodes[actionCount].GetComponent<PositionData>().GoToPos();
+                posNodes[actionCount].GetComponent<PositionData>().DoAction();
 
                 posNodes[actionCount].GetComponent<Image>().color = playColor; // Set Color
 

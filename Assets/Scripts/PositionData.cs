@@ -15,8 +15,8 @@ public class PositionData : MonoBehaviour
     }
 
     // Rotates the arm to the target location
-    public void GoToPos()
+    public void DoAction()
     {
-        kuka.GetComponent<ArmMovement>().GoToPos(index);
+        kuka.GetComponent<ArmMovement>().actions[index].DoAction(kuka, index);
     }
 }
