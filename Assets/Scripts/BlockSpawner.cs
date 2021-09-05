@@ -18,6 +18,6 @@ public class BlockSpawner : MonoBehaviour
 
     public void SpawnBlock()
     {
-        GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, Quaternion.identity, transform);
+        GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
     }
 }

@@ -16,6 +16,7 @@ public class ArmMovement : MonoBehaviour
     public Transform gripB;
     public Transform blockParent;
     public Transform currentlyGripped;
+    public Animator gripperAnimation;
 
     // To apply rotation direction
     bool positive = true;
@@ -24,6 +25,7 @@ public class ArmMovement : MonoBehaviour
     {
         // Gets the saved Positions Parent
         savedPoints = GameObject.FindGameObjectWithTag("SavedPoints").GetComponent<SavedPositions>();
+        gripperAnimation.speed = 0;
     }
 
     void Update()
@@ -212,16 +214,44 @@ public class ArmMovement : MonoBehaviour
 
     public void Grip()
     {
-        if (gripA.GetComponent<GripDetection>().touching != null && gripB.GetComponent<GripDetection>().touching != null)
-        {
-            currentlyGripped = gripA.GetComponent<GripDetection>().touching.transform;
-            currentlyGripped.parent = armParts[5];
-        }
+        StopAllCoroutines();
+        gripperAnimation.SetBool("Grip", false);
+        StartCoroutine(CloseGripper());
     }
 
     public void GripRelease()
     {
-        currentlyGripped.parent = blockParent;
-        currentlyGripped.GetComponent<Rigidbody>().isKinematic = false;
+        StopAllCoroutines();
+        gripperAnimation.speed = 1;
+        gripperAnimation.SetBool("Grip", true);
+
+        if (currentlyGripped != null)
+        {
+            currentlyGripped.GetComponent<Rigidbody>().isKinematic = false;
+            currentlyGripped.parent = blockParent;
+        }
+    }
+
+    IEnumerator CloseGripper()
+    {
+        bool stop = false;
+
+        gripperAnimation.speed = 1;
+
+        while (!stop)
+        {
+            if (gripA.GetComponent<GripDetection>().touching != null && gripA.GetComponent<GripDetection>().touching != null)
+            {
+                if (gripA.GetComponent<GripDetection>().touching == gripB.GetComponent<GripDetection>().touching)
+                {
+                    stop = true;
+                    gripperAnimation.speed = 0;
+                    currentlyGripped = gripA.GetComponent<GripDetection>().touching.transform;
+                    currentlyGripped.GetComponent<Rigidbody>().isKinematic = true;
+                    currentlyGripped.parent = armParts[5];
+                }
+            }
+            yield return null;
+        }
     }
 }
