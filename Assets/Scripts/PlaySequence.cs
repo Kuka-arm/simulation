@@ -80,7 +80,7 @@ public class PlaySequence : MonoBehaviour
 
         foreach  (Transform part in armMov.armParts)
         {
-            if (!part.GetComponent<ArmPiece>().completed)
+            if (!part.GetComponent<ArmPiece>().completed || armMov.gripping == 0)
             {
                 completed = false;
                 performed = false;

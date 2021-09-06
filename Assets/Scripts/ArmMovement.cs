@@ -22,6 +22,9 @@ public class ArmMovement : MonoBehaviour
     // To apply rotation direction
     bool positive = true;
 
+    public int gripping = 1; // 0 = busy, 1 = open, 2 = closed
+    bool resetOpenGrip = false;
+
     void Start()
     {
         // Gets the saved Positions Parent
@@ -168,15 +171,9 @@ public class ArmMovement : MonoBehaviour
     }
 
     // Switch the positive bool
-    public void EnablePositive()
-    {
-        positive = true;
-    }
+    public void EnablePositive() => positive = true;
 
-    public void DisablePositive()
-    {
-        positive = false;
-    }
+    public void DisablePositive() => positive = false;
 
     // Resets the arm to its origin position
     public void ResetArm()
@@ -215,6 +212,9 @@ public class ArmMovement : MonoBehaviour
 
     public void Grip()
     {
+        if (gripping != 1)
+            return;
+
         StopAllCoroutines();
         //gripperAnimation.SetBool("Grip", false);
         StartCoroutine(CloseGripper());
@@ -222,9 +222,22 @@ public class ArmMovement : MonoBehaviour
 
     public void GripRelease()
     {
+        if (gripping != 2)
+            return;
+
         StopAllCoroutines();
         gripperAnimation.speed = 1;
-        PlayAnimation("Gripper Open");
+
+        if (!resetOpenGrip)
+        {
+            PlayAnimation("Gripper Open");
+        }
+        else
+        {
+            gripperAnimation.Play($"Base Layer.Gripper Open", 0, 0);
+        }
+
+        SetGripping(0);
         //gripperAnimation.SetBool("Grip", true);
 
         if (currentlyGripped != null)
@@ -248,6 +261,14 @@ public class ArmMovement : MonoBehaviour
         savedPoints.UpdateUI(actions.ToArray());
     }
 
+    public void SetGripping(int value) => gripping = value;
+
+    public void GrippingClosedNothingFound()
+    {
+        SetGripping(2);
+        resetOpenGrip = true;
+    }
+
     public void PlayAnimation(string animation)
     {
         currentClipInfo = gripperAnimation.GetCurrentAnimatorClipInfo(0);
@@ -268,6 +289,8 @@ public class ArmMovement : MonoBehaviour
 
         gripperAnimation.speed = 1;
         gripperAnimation.Play($"Base Layer.Gripper Close", 0, 0);
+        resetOpenGrip = false;
+        SetGripping(0);
 
         while (!stop)
         {
@@ -276,6 +299,7 @@ public class ArmMovement : MonoBehaviour
                 if (gripA.GetComponent<GripDetection>().touching == gripB.GetComponent<GripDetection>().touching)
                 {
                     stop = true;
+                    SetGripping(2);
                     gripperAnimation.speed = 0;
                     currentlyGripped = gripA.GetComponent<GripDetection>().touching.transform;
                     currentlyGripped.GetComponent<Rigidbody>().isKinematic = true;

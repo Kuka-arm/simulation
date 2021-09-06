@@ -375,6 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775130105022660349}
   - component: {fileID: 5752261348886700361}
+  - component: {fileID: 1002195345261931736}
   m_Layer: 0
   m_Name: NewGripper
   m_TagString: Untagged
@@ -424,6 +425,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1002195345261931736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434774440340251719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d2951ff0d686043a1b03570709c64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armMovment: {fileID: 5196025140951386063}
 --- !u!1 &1716596027890754196
 GameObject:
   m_ObjectHideFlags: 0
