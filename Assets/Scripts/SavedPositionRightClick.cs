@@ -46,7 +46,7 @@ public class SavedPositionRightClick : MonoBehaviour, IPointerClickHandler
 
         Action tempAction = actions[posData.index - 1];
 
-        actions[posData.index - 1] = new Action(posData.axisRotations);
+        actions[posData.index - 1] = posData.nodeAction;
 
         actions[posData.index] = tempAction;
 
@@ -65,7 +65,7 @@ public class SavedPositionRightClick : MonoBehaviour, IPointerClickHandler
 
         Action tempAction = actions[posData.index + 1];
 
-        actions[posData.index + 1] = new Action(posData.axisRotations);
+        actions[posData.index + 1] = posData.nodeAction;
 
         actions[posData.index] = tempAction;
 

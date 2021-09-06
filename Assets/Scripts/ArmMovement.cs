@@ -17,6 +17,7 @@ public class ArmMovement : MonoBehaviour
     public Transform blockParent;
     public Transform currentlyGripped;
     public Animator gripperAnimation;
+    AnimatorClipInfo[] currentClipInfo;
 
     // To apply rotation direction
     bool positive = true;
@@ -215,7 +216,7 @@ public class ArmMovement : MonoBehaviour
     public void Grip()
     {
         StopAllCoroutines();
-        gripperAnimation.SetBool("Grip", false);
+        //gripperAnimation.SetBool("Grip", false);
         StartCoroutine(CloseGripper());
     }
 
@@ -223,7 +224,8 @@ public class ArmMovement : MonoBehaviour
     {
         StopAllCoroutines();
         gripperAnimation.speed = 1;
-        gripperAnimation.SetBool("Grip", true);
+        PlayAnimation("Gripper Open");
+        //gripperAnimation.SetBool("Grip", true);
 
         if (currentlyGripped != null)
         {
@@ -232,11 +234,40 @@ public class ArmMovement : MonoBehaviour
         }
     }
 
+    public void SaveGripClose()
+    {
+        actions.Add(new Grip(1));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void SaveGripOpen()
+    {
+        actions.Add(new Grip(2));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void PlayAnimation(string animation)
+    {
+        currentClipInfo = gripperAnimation.GetCurrentAnimatorClipInfo(0);
+
+        if (currentClipInfo[0].clip.name != animation)
+        {
+            gripperAnimation.Play($"Base Layer.{animation}", 0, 1 - gripperAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        }
+        else
+        {
+            return;
+        }
+    }
+
     IEnumerator CloseGripper()
     {
         bool stop = false;
 
         gripperAnimation.speed = 1;
+        gripperAnimation.Play($"Base Layer.Gripper Close", 0, 0);
 
         while (!stop)
         {
