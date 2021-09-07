@@ -90,6 +90,16 @@ public class ArmMovement : MonoBehaviour
         {
             GripRelease();
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            SaveData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            LoadData();
+        }
     }
 
     // What the buttons use to rotate the arm
@@ -294,7 +304,7 @@ public class ArmMovement : MonoBehaviour
 
         while (!stop)
         {
-            if (gripA.GetComponent<GripDetection>().touching != null && gripA.GetComponent<GripDetection>().touching != null)
+            if (gripA.GetComponent<GripDetection>().touching != null && gripB.GetComponent<GripDetection>().touching != null)
             {
                 if (gripA.GetComponent<GripDetection>().touching == gripB.GetComponent<GripDetection>().touching)
                 {
@@ -308,5 +318,17 @@ public class ArmMovement : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void SaveData()
+    {
+        SaveData data = new SaveData(actions);
+        SaveLoad.Save(data);
+    }
+
+    public void LoadData()
+    {
+        actions = SaveLoad.Load().actions;
+        savedPoints.UpdateUI(actions.ToArray());
     }
 }

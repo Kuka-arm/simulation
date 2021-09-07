@@ -32,6 +32,8 @@ public class SavedPositionRightClick : MonoBehaviour, IPointerClickHandler
                 posNodes[i].GetComponent<PositionData>().index--;
             }
 
+            savedPos.GetComponentInParent<SavedPositions>().ResizePanelDown();
+
             Destroy(gameObject);
         }
     }

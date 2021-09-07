@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
 public class Action
 {
+    [SerializeField]
     Quaternion[] axisRotations;
+
+    [SerializeField]
     int grip; // 0 = nothing, 1 = close, 2 = open
 
     public Quaternion[] AxisRotations { get => axisRotations; set => axisRotations = value; }
@@ -11,7 +16,7 @@ public class Action
 
     public Action(Quaternion[] axisRotations)
     {
-        this.AxisRotations = axisRotations;
+        this.axisRotations = axisRotations;
         this.grip = 0;
     }
 

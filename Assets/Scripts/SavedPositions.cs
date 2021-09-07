@@ -13,6 +13,7 @@ public class SavedPositions : MonoBehaviour
     public void UpdateUI(Action[] position)
     {
         Transform[] posNodes = positionParent.Cast<Transform>().ToArray();
+        ResetPanel();
 
         if (posNodes.Length != 0) // Update existing positions
         {
@@ -46,6 +47,8 @@ public class SavedPositions : MonoBehaviour
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Grip Open";
                 }
+
+                ResizePanelUp();
             }
 
             if (position.Length - posNodes.Length > 0) // If there are still movements and all the old one have been updated, add new ones
@@ -110,5 +113,28 @@ public class SavedPositions : MonoBehaviour
             // Change text
             newPosNode.GetComponentInChildren<TextMeshProUGUI>().text = $"Action {index + 1}: Grip Open";
         }
+
+        ResizePanelUp();
+    }
+
+    void ResizePanelUp()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
+        GetComponent<RectTransform>().sizeDelta += new Vector2(0, 30f);
+        positionParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 30f);
+    }
+
+    public void ResizePanelDown()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 15f, transform.position.z);
+        GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 30f);
+        positionParent.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 30f);
+    }
+
+    void ResetPanel()
+    {
+        transform.position = new Vector3(transform.position.x, 40f, transform.position.z);
+        GetComponent<RectTransform>().sizeDelta = new Vector2(400f, 80f);
+        positionParent.GetComponent<RectTransform>().sizeDelta = new Vector2(380f, 0);
     }
 }
