@@ -19,6 +19,8 @@ public class ArmMovement : MonoBehaviour
     public Animator gripperAnimation;
     AnimatorClipInfo[] currentClipInfo;
 
+    public RenderTexture camRendTex;
+
     // To apply rotation direction
     bool positive = true;
 
@@ -99,6 +101,11 @@ public class ArmMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             LoadData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GetCamImage();
         }
     }
 
@@ -330,5 +337,21 @@ public class ArmMovement : MonoBehaviour
     {
         actions = SaveLoad.Load().actions;
         savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void GetCamImage()
+    {
+        byte[] bytes = toTex2d(camRendTex).EncodeToPNG();
+        System.IO.File.WriteAllBytes("C:/Users/Gardener/Desktop/Class notes/PRJ3x1/Picture.png", bytes);
+    }
+
+    Texture2D toTex2d(RenderTexture texToRender)
+    {
+        Texture2D tex2D = new Texture2D(190, 140, TextureFormat.RGB24, false);
+        RenderTexture.active = texToRender;
+        tex2D.ReadPixels(new Rect(0, 0, texToRender.width, texToRender.height), 0, 0);
+        tex2D.Apply();
+
+        return tex2D;
     }
 }
