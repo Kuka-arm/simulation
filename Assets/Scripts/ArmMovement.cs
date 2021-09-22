@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ArmMovement : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class ArmMovement : MonoBehaviour
     AnimatorClipInfo[] currentClipInfo;
 
     public RenderTexture camRendTex;
+    public Image colorDisplayImg;
 
     // To apply rotation direction
     bool positive = true;
@@ -105,7 +107,8 @@ public class ArmMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GetCamImage();
+            SaveLoad.GetCamImage(camRendTex);
+            StartCoroutine(GetCurrentBlockColor());
         }
     }
 
@@ -339,19 +342,14 @@ public class ArmMovement : MonoBehaviour
         savedPoints.UpdateUI(actions.ToArray());
     }
 
-    public void GetCamImage()
+    IEnumerator GetCurrentBlockColor()
     {
-        byte[] bytes = toTex2d(camRendTex).EncodeToPNG();
-        System.IO.File.WriteAllBytes("C:/Users/Gardener/Desktop/Class notes/PRJ3x1/Picture.png", bytes);
-    }
+        yield return new WaitForSeconds(0.5f);
 
-    Texture2D toTex2d(RenderTexture texToRender)
-    {
-        Texture2D tex2D = new Texture2D(190, 140, TextureFormat.RGB24, false);
-        RenderTexture.active = texToRender;
-        tex2D.ReadPixels(new Rect(0, 0, texToRender.width, texToRender.height), 0, 0);
-        tex2D.Apply();
+        Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
 
-        return tex2D;
+        Color[] colors = { Color.green, Color.blue, Color.red };
+
+        colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
     }
 }
