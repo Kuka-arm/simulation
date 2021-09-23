@@ -19,5 +19,8 @@ public class BlockSpawner : MonoBehaviour
     public void SpawnBlock()
     {
         GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
+        Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
+        Renderer renderer = newblock.GetComponentInChildren<Renderer>();
+        renderer.material.color = newColor;
     }
 }
