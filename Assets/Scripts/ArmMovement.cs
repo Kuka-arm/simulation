@@ -107,8 +107,11 @@ public class ArmMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SaveLoad.GetCamImage(camRendTex);
-            StartCoroutine(GetCurrentBlockColor());
+            Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+            Color[] colors = { Color.green, Color.blue, Color.red };
+
+            colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }
     }
 
@@ -340,16 +343,5 @@ public class ArmMovement : MonoBehaviour
     {
         actions = SaveLoad.Load().actions;
         savedPoints.UpdateUI(actions.ToArray());
-    }
-
-    IEnumerator GetCurrentBlockColor()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
-
-        Color[] colors = { Color.green, Color.blue, Color.red };
-
-        colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
     }
 }
