@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
+    public GameObject blockMenu;
+
     private void Awake()
     {
         Hide();
@@ -11,11 +13,11 @@ public class UserInput : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        blockMenu.SetActive(true);
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        blockMenu.SetActive(false);
     }
 }
