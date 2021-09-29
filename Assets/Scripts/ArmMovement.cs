@@ -333,6 +333,20 @@ public class ArmMovement : MonoBehaviour
         }
     }
 
+    public void SaveIfStart()
+    {
+        actions.Add(new IfStatement(1, Color.red));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void SaveIfEnd()
+    {
+        actions.Add(new IfStatement(2, Color.clear));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
     public void SaveData()
     {
         SaveData data = new SaveData(actions);

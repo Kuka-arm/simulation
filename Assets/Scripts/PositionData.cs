@@ -6,6 +6,7 @@ public class PositionData : MonoBehaviour
 {
     public Action nodeAction = new Action(); // Saved rotations of a saved position
     public int index; // Saved index of a rotation
+    public GameObject colorObj;
 
     Transform kuka; // Reference to the kuka arm
 
