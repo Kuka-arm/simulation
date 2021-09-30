@@ -34,12 +34,13 @@ public class SavedPositions : MonoBehaviour
                 }
                 else if (position[i].IfStatement == 2)
                 {
-                    posNodes[i].GetComponent<PositionData>().nodeAction = null;
+                    posNodes[i].GetComponent<PositionData>().nodeAction = new IfStatement(position[i].IfStatement, position[i].Color);
                     posNodes[i].GetComponent<PositionData>().index = i;
 
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"End if";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 }
 
                 if (position[i].Grip == 0 && position[i].IfStatement == 0)
@@ -51,6 +52,7 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Position";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 } 
                 else if (position[i].Grip == 1 && position[i].IfStatement == 0)
                 {
@@ -60,6 +62,7 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Grip Close";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 }
                 else if (position[i].Grip == 2 && position[i].IfStatement == 0)
                 {
@@ -69,6 +72,7 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Grip Open";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 }
 
                 ResizePanelUp();
@@ -120,7 +124,7 @@ public class SavedPositions : MonoBehaviour
             // Create Position Node
             GameObject newPosNode = Instantiate(positionNode, positionParent);
 
-            newPosNode.GetComponent<PositionData>().nodeAction = null;
+            newPosNode.GetComponent<PositionData>().nodeAction = new IfStatement(position[index].IfStatement, position[index].Color);
             newPosNode.GetComponent<PositionData>().index = index;
 
 

@@ -109,7 +109,7 @@ public class ArmMovement : MonoBehaviour
         {
             Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
 
-            Color[] colors = { Color.green, Color.blue, Color.red };
+            Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
 
             colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }
