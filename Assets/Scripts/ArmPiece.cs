@@ -15,6 +15,7 @@ public class ArmPiece : MonoBehaviour
         // Gets original pos and keeps the target neutral
         originalPos = transform.localRotation;
         target = transform.localRotation;
+        completed = true;
     }
 
     void Update()

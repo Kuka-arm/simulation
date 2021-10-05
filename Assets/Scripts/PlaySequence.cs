@@ -8,7 +8,6 @@ public class PlaySequence : MonoBehaviour
 {
     bool actionCompleted = true; // Checks if the current action is completed
     int actionCount = 0; // Keeps track of where the play sequence is at
-    bool performed = false; // Checks if current action has started
     bool play = false; // Checks to see if the play sequence is started
 
     public Transform positionParent;
@@ -40,15 +39,11 @@ public class PlaySequence : MonoBehaviour
                 return;
             }
 
-            if (!performed) // Start performing the action
-            {
-                posNodes[actionCount].GetComponent<PositionData>().DoAction();
+            posNodes[actionCount].GetComponent<PositionData>().DoAction();
 
-                posNodes[actionCount].GetComponent<Image>().color = playColor; // Set Color
+            posNodes[actionCount].GetComponent<Image>().color = playColor; // Set Color
 
-                performed = true;
-                actionCount++;
-            }
+            actionCount++;
 
             if (actionCount >= posNodes.Length)
             {
@@ -83,7 +78,6 @@ public class PlaySequence : MonoBehaviour
             if (!part.GetComponent<ArmPiece>().completed || armMov.gripping == 0)
             {
                 completed = false;
-                performed = false;
             }
         }
 
@@ -100,7 +94,6 @@ public class PlaySequence : MonoBehaviour
     {
         play = true;
         actionCount = 0;
-        performed = false;
         actionCompleted = true;
     }
 }
