@@ -10,6 +10,15 @@ public class IfStatement : Action
 
     public override void DoAction(Transform kuka, int index)
     {
-        Debug.Log("Man");
+        switch (IfStatement)
+        {
+            case 1:
+                kuka.GetComponent<ArmMovement>().GetColorFromBlock();
+                kuka.GetComponent<ArmMovement>().StartIf();
+                break;
+            case 2:
+                kuka.GetComponent<ArmMovement>().EndIf();
+                break;
+        }
     }
 }

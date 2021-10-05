@@ -8862,6 +8862,7 @@ MonoBehaviour:
   positionParent: {fileID: 2054910130}
   normalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   playColor: {r: 0, g: 0.754717, b: 0.094709575, a: 0.39215687}
+  colorPanel: {fileID: 1708260125}
 --- !u!1 &1704258052
 GameObject:
   m_ObjectHideFlags: 0

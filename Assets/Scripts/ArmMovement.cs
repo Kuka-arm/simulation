@@ -29,6 +29,9 @@ public class ArmMovement : MonoBehaviour
     public int gripping = 1; // 0 = busy, 1 = open, 2 = closed
     bool resetOpenGrip = false;
 
+    public bool ifActive = false;
+    public bool performIf = false;
+
     void Start()
     {
         // Gets the saved Positions Parent
@@ -333,6 +336,15 @@ public class ArmMovement : MonoBehaviour
         }
     }
 
+    public void GetColorFromBlock()
+    {
+        Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+        Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+
+        colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
+    }
+
     public void SaveIfStart()
     {
         actions.Add(new IfStatement(1, Color.red));
@@ -345,6 +357,16 @@ public class ArmMovement : MonoBehaviour
         actions.Add(new IfStatement(2, Color.clear));
 
         savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void StartIf()
+    {
+        ifActive = true;
+    }
+
+    public void EndIf()
+    {
+        ifActive = false;
     }
 
     public void SaveData()

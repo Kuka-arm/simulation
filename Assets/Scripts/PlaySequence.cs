@@ -10,11 +10,15 @@ public class PlaySequence : MonoBehaviour
     int actionCount = 0; // Keeps track of where the play sequence is at
     bool play = false; // Checks to see if the play sequence is started
 
+    bool startedIf = false;
+
     public Transform positionParent;
     ArmMovement armMov;
 
     public Color normalColor; // Unhighlighted color for the UI element
     public Color playColor; // Highlighted color for the UI element
+
+    public Image colorPanel;
 
     private void Start()
     {
@@ -39,9 +43,34 @@ public class PlaySequence : MonoBehaviour
                 return;
             }
 
-            posNodes[actionCount].GetComponent<PositionData>().DoAction();
+            if (armMov.ifActive)
+            {
+                if (!startedIf)
+                {
+                    if (posNodes[actionCount-1].GetComponent<PositionData>().colorObj.GetComponent<Image>().color == colorPanel.color)
+                    {
+                        armMov.performIf = true;
+                    }
+                    else
+                    {
+                        armMov.performIf = false;
+                    }
 
-            posNodes[actionCount].GetComponent<Image>().color = playColor; // Set Color
+                    startedIf = true;
+                    Debug.Log($"{armMov.performIf}, {posNodes[actionCount-1].GetComponent<PositionData>().colorObj.GetComponent<Image>().color}, {colorPanel.color}");
+                }
+            }
+            else
+            {
+                startedIf = false;
+            }
+
+            if (!armMov.ifActive || armMov.ifActive && armMov.performIf || posNodes[actionCount].GetComponent<PositionData>().nodeAction.IfStatement == 2)
+            {
+                posNodes[actionCount].GetComponent<PositionData>().DoAction();
+
+                posNodes[actionCount].GetComponent<Image>().color = playColor; // Set Color
+            }
 
             actionCount++;
 
