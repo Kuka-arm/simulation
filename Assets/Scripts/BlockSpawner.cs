@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
@@ -7,6 +8,7 @@ public class BlockSpawner : MonoBehaviour
     [Header("References")]
     public GameObject blockPrefab;
     public Transform blockSpawnPoint;
+    public Transform blockParent;
 
     public void Update()
     {
@@ -16,11 +18,30 @@ public class BlockSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnBlock()
+    public void SpawnBlock(int number)
     {
-        GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
-        Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
-        Renderer renderer = newblock.GetComponentInChildren<Renderer>();
-        renderer.material.color = newColor;
+        StartCoroutine(spawnUserAmount(number));
+    }
+    IEnumerator spawnUserAmount(int numberBlocks)
+    {
+        int count = 0;
+        int counter = 0;
+
+        while (counter < numberBlocks)
+        {
+            Transform[] spawnBlocks = blockParent.Cast<Transform>().ToArray();
+            count = spawnBlocks.Length;
+
+            if (count < 11)
+            {
+                GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
+                Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
+                Renderer renderer = newblock.GetComponentInChildren<Renderer>();
+                renderer.material.color = newColor;
+
+                counter++;
+            }
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
