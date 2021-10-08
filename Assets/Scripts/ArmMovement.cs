@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ArmMovement : MonoBehaviour
 {
@@ -19,11 +20,17 @@ public class ArmMovement : MonoBehaviour
     public Animator gripperAnimation;
     AnimatorClipInfo[] currentClipInfo;
 
+    public RenderTexture camRendTex;
+    public Image colorDisplayImg;
+
     // To apply rotation direction
     bool positive = true;
 
     public int gripping = 1; // 0 = busy, 1 = open, 2 = closed
     bool resetOpenGrip = false;
+
+    public bool ifActive = false;
+    public bool performIf = false;
 
     void Start()
     {
@@ -99,6 +106,15 @@ public class ArmMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             LoadData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+            Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+
+            colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }
     }
 
@@ -318,6 +334,39 @@ public class ArmMovement : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void GetColorFromBlock()
+    {
+        Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+        Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+
+        colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
+    }
+
+    public void SaveIfStart()
+    {
+        actions.Add(new IfStatement(1, Color.red));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void SaveIfEnd()
+    {
+        actions.Add(new IfStatement(2, Color.clear));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void StartIf()
+    {
+        ifActive = true;
+    }
+
+    public void EndIf()
+    {
+        ifActive = false;
     }
 
     public void SaveData()

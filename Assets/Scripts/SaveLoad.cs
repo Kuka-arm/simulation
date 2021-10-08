@@ -38,4 +38,26 @@ public static class SaveLoad
 
         return actions;
     }
+
+    public static void GetCamImage(RenderTexture rendTex)
+    {
+        byte[] bytes = toTex2d(rendTex).EncodeToPNG();
+
+        if (!Directory.Exists(Application.persistentDataPath + "/Image/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/Image/");
+        }
+
+        File.WriteAllBytes(Application.persistentDataPath + "/Image/Picture.png", bytes);
+    }
+
+    public static Texture2D toTex2d(RenderTexture texToRender)
+    {
+        Texture2D tex2D = new Texture2D(190, 140, TextureFormat.RGB24, false);
+        RenderTexture.active = texToRender;
+        tex2D.ReadPixels(new Rect(0, 0, texToRender.width, texToRender.height), 0, 0);
+        tex2D.Apply();
+
+        return tex2D;
+    }
 }

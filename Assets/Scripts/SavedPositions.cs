@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 
@@ -19,7 +20,30 @@ public class SavedPositions : MonoBehaviour
         {
             for (int i = 0; i < posNodes.Length; i++) // Update any existing ones
             {
-                if (position[i].Grip == 0)
+                if (position[i].IfStatement == 1)
+                {
+                    // Assign new data
+                    posNodes[i].GetComponent<PositionData>().nodeAction = new IfStatement(position[i].IfStatement, position[i].Color);
+                    posNodes[i].GetComponent<PositionData>().index = i;
+
+
+                    // Change text
+                    posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"If Color:";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(true);
+                    posNodes[i].GetComponent<PositionData>().colorObj.GetComponent<Image>().color = position[i].Color;
+                }
+                else if (position[i].IfStatement == 2)
+                {
+                    posNodes[i].GetComponent<PositionData>().nodeAction = new IfStatement(position[i].IfStatement, position[i].Color);
+                    posNodes[i].GetComponent<PositionData>().index = i;
+
+
+                    // Change text
+                    posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"End if";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
+                }
+
+                if (position[i].Grip == 0 && position[i].IfStatement == 0)
                 {
                     // Assign new data
                     posNodes[i].GetComponent<PositionData>().nodeAction = new Position(position[i].AxisRotations);
@@ -28,8 +52,9 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Position";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 } 
-                else if( position[i].Grip == 1)
+                else if (position[i].Grip == 1 && position[i].IfStatement == 0)
                 {
                     posNodes[i].GetComponent<PositionData>().nodeAction = new Grip(position[i].Grip);
                     posNodes[i].GetComponent<PositionData>().index = i;
@@ -37,8 +62,9 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Grip Close";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 }
-                else if (position[i].Grip == 2)
+                else if (position[i].Grip == 2 && position[i].IfStatement == 0)
                 {
                     posNodes[i].GetComponent<PositionData>().nodeAction = new Grip(position[i].Grip);
                     posNodes[i].GetComponent<PositionData>().index = i;
@@ -46,6 +72,7 @@ public class SavedPositions : MonoBehaviour
 
                     // Change text
                     posNodes[i].GetComponentInChildren<TextMeshProUGUI>().text = $"Action {i + 1}: Grip Open";
+                    posNodes[i].GetComponent<PositionData>().colorObj.SetActive(false);
                 }
 
                 ResizePanelUp();
@@ -77,7 +104,35 @@ public class SavedPositions : MonoBehaviour
 
     void SpawnNewNode(Action[] position, int index)
     {
-        if (position[index].Grip == 0)
+        if (position[index].IfStatement == 1)
+        {
+            // Create Position Node
+            GameObject newPosNode = Instantiate(positionNode, positionParent);
+
+            // Assign new data
+            newPosNode.GetComponent<PositionData>().nodeAction = new IfStatement(position[index].IfStatement, position[index].Color);
+            newPosNode.GetComponent<PositionData>().index = index;
+
+
+            // Change text
+            newPosNode.GetComponentInChildren<TextMeshProUGUI>().text = $"If Color:";
+            newPosNode.GetComponent<PositionData>().colorObj.SetActive(true);
+            newPosNode.GetComponent<PositionData>().colorObj.GetComponent<Image>().color = position[index].Color;
+        }
+        else if (position[index].IfStatement == 2)
+        {
+            // Create Position Node
+            GameObject newPosNode = Instantiate(positionNode, positionParent);
+
+            newPosNode.GetComponent<PositionData>().nodeAction = new IfStatement(position[index].IfStatement, position[index].Color);
+            newPosNode.GetComponent<PositionData>().index = index;
+
+
+            // Change text
+            newPosNode.GetComponentInChildren<TextMeshProUGUI>().text = $"End if";
+        }
+
+        if (position[index].Grip == 0 && position[index].IfStatement == 0)
         {
             // Create Position Node
             GameObject newPosNode = Instantiate(positionNode, positionParent);
@@ -89,7 +144,7 @@ public class SavedPositions : MonoBehaviour
             // Change text
             newPosNode.GetComponentInChildren<TextMeshProUGUI>().text = $"Action {index + 1}: Position";
         }
-        else if (position[index].Grip == 1)
+        else if (position[index].Grip == 1 && position[index].IfStatement == 0)
         {
             // Create Position Node
             GameObject newPosNode = Instantiate(positionNode, positionParent);
@@ -101,7 +156,7 @@ public class SavedPositions : MonoBehaviour
             // Change text
             newPosNode.GetComponentInChildren<TextMeshProUGUI>().text = $"Action {index + 1}: Grip Close";
         }
-        else if (position[index].Grip == 2)
+        else if (position[index].Grip == 2 && position[index].IfStatement == 0)
         {
             // Create Position Node
             GameObject newPosNode = Instantiate(positionNode, positionParent);
