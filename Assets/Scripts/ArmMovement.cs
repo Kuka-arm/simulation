@@ -16,6 +16,7 @@ public class ArmMovement : MonoBehaviour
     public Transform gripA;
     public Transform gripB;
     public Transform blockParent;
+    public Transform placedBlockParent;
     public Transform currentlyGripped;
     public Animator gripperAnimation;
     AnimatorClipInfo[] currentClipInfo;
@@ -269,7 +270,7 @@ public class ArmMovement : MonoBehaviour
         if (currentlyGripped != null)
         {
             currentlyGripped.GetComponent<Rigidbody>().isKinematic = false;
-            currentlyGripped.parent = blockParent;
+            currentlyGripped.parent = placedBlockParent;
         }
     }
 
