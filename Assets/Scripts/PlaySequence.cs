@@ -9,6 +9,7 @@ public class PlaySequence : MonoBehaviour
     bool actionCompleted = true; // Checks if the current action is completed
     int actionCount = 0; // Keeps track of where the play sequence is at
     bool play = false; // Checks to see if the play sequence is started
+    bool loop;
 
     bool startedIf = false;
 
@@ -76,7 +77,14 @@ public class PlaySequence : MonoBehaviour
 
             if (actionCount >= posNodes.Length)
             {
-                play = false;
+                if (loop)
+                {
+                    Play();
+                }
+                else
+                {
+                    play = false;
+                }
             }
 
             actionCompleted = false;
@@ -125,4 +133,6 @@ public class PlaySequence : MonoBehaviour
         actionCount = 0;
         actionCompleted = true;
     }
+
+    public void ToggleLoop() => loop = !loop;
 }

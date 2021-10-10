@@ -34,6 +34,7 @@ public class BlockSpawner : MonoBehaviour
 
             if (count < 11)
             {
+                yield return new WaitForSeconds(1f);
                 GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
                 Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
                 Renderer renderer = newblock.GetComponentInChildren<Renderer>();
@@ -41,7 +42,10 @@ public class BlockSpawner : MonoBehaviour
 
                 counter++;
             }
-            yield return new WaitForSeconds(1f);
+            else
+            {
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 }
