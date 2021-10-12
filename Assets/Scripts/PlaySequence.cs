@@ -135,4 +135,9 @@ public class PlaySequence : MonoBehaviour
     }
 
     public void ToggleLoop() => loop = !loop;
+
+    public void Stop()
+    {
+        play = false;
+    }
 }

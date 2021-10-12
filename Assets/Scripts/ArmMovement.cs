@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ArmMovement : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class ArmMovement : MonoBehaviour
 
     public bool ifActive = false;
     public bool performIf = false;
+
+    public GameObject SavePnl, LoadPnl;
 
     void Start()
     {
@@ -99,14 +102,19 @@ public class ArmMovement : MonoBehaviour
             GripRelease();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SaveData();
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    SaveData();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.X))
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    LoadData();
+        //}
+
+        if (Input.GetKeyDown(KeyCode.Delete))
         {
-            LoadData();
+            ResetApp();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -374,11 +382,41 @@ public class ArmMovement : MonoBehaviour
     {
         SaveData data = new SaveData(actions);
         SaveLoad.Save(data);
+        StartCoroutine(UiFade(1));
     }
 
     public void LoadData()
     {
         actions = SaveLoad.Load().actions;
         savedPoints.UpdateUI(actions.ToArray());
+        StartCoroutine(UiFade(0));
+    }
+
+    IEnumerator UiFade(int panel)
+    {
+        SavePnl.SetActive(false);
+        LoadPnl.SetActive(false);
+
+        if (panel == 1)
+        {
+            SavePnl.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            SavePnl.SetActive(false);
+        }
+        else
+        {
+            LoadPnl.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            LoadPnl.SetActive(false);
+        }
+    }
+
+    private void ResetApp()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
