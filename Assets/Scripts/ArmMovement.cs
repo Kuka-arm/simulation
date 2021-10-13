@@ -417,6 +417,11 @@ public class ArmMovement : MonoBehaviour
 
     private void ResetApp()
     {
+        CountBlocks.counter = 0;
+        Zone1.counter = 0;
+        Zone2.counter = 0;
+        Zone3.counter = 0;
+        Zone4.counter = 0;
         SceneManager.LoadScene("SampleScene");
     }
 }
