@@ -12,6 +12,9 @@ public class BlockSpawner : MonoBehaviour
 
     public void Update()
     {
+        if (CameraMovement.StartMenu)
+            return;
+
         if (Input.GetKey(KeyCode.ScrollLock))
         {
             Instantiate(blockPrefab, blockSpawnPoint.position, Quaternion.identity, transform);

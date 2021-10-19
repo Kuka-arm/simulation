@@ -14,6 +14,8 @@ public class ArmMovement : MonoBehaviour
 
     SavedPositions savedPoints; // Reference to the saved Positions parent
 
+    public float speed;
+
     public Transform gripA;
     public Transform gripB;
     public Transform blockParent;
@@ -45,6 +47,9 @@ public class ArmMovement : MonoBehaviour
 
     void Update()
     {
+        if (CameraMovement.StartMenu)
+            return;
+
         // Checks for input to rotate arm parts
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -121,7 +126,7 @@ public class ArmMovement : MonoBehaviour
         {
             Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
 
-            Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+            Color[] colors = { Color.green, Color.blue, Color.red };
 
             colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }

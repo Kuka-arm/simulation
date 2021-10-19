@@ -13,8 +13,30 @@ public class CameraMovement : MonoBehaviour
     public GameObject mainCam;
     public GameObject secondCam;
 
+    public static bool StartMenu = true;
+    public LayerMask noUI;
+    public LayerMask allUI;
+    public Camera UICamera;
+
+    private void Start()
+    {
+        UICamera.cullingMask = noUI;
+    }
+
     void Update()
     {
+        if (Input.anyKeyDown)
+        {
+            StartMenu = false;
+            UICamera.cullingMask = allUI;
+        }
+
+        if (StartMenu)
+        {
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + 0.2f, transform.localRotation.eulerAngles.z);
+            return;
+        }
+
         float rotationSpeed = rotSpeed * Time.deltaTime;
         float movementSpeed = movSpeed * Time.deltaTime;
 
