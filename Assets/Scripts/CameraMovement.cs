@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-                secondCam.transform.localRotation = Quaternion.Euler(secondCam.transform.localRotation.eulerAngles.x, secondCam.transform.localRotation.eulerAngles.y + rotationSpeed, secondCam.transform.localRotation.eulerAngles.z);
+                //secondCam.transform.localRotation = Quaternion.Euler(secondCam.transform.localRotation.eulerAngles.x, secondCam.transform.localRotation.eulerAngles.y + rotationSpeed, secondCam.transform.localRotation.eulerAngles.z);
             }
         }
 
@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-                secondCam.transform.localRotation = Quaternion.Euler(secondCam.transform.localRotation.eulerAngles.x, secondCam.transform.localRotation.eulerAngles.y - rotationSpeed, secondCam.transform.localRotation.eulerAngles.z);
+                //secondCam.transform.localRotation = Quaternion.Euler(secondCam.transform.localRotation.eulerAngles.x, secondCam.transform.localRotation.eulerAngles.y - rotationSpeed, secondCam.transform.localRotation.eulerAngles.z);
             }
         }
 
@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-                secondCam.transform.position = new Vector3(secondCam.transform.position.x, Mathf.Clamp(secondCam.transform.position.y + movementSpeed * 2, 2.5f, 6f), secondCam.transform.position.z);
+                //secondCam.transform.position = new Vector3(secondCam.transform.position.x, Mathf.Clamp(secondCam.transform.position.y + movementSpeed * 2, 2.5f, 6f), secondCam.transform.position.z);
             }
         }
 
@@ -62,7 +62,7 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-                secondCam.transform.position = new Vector3(secondCam.transform.position.x, Mathf.Clamp(secondCam.transform.position.y - movementSpeed * 2, 2.5f, 6f), secondCam.transform.position.z);
+                //secondCam.transform.position = new Vector3(secondCam.transform.position.x, Mathf.Clamp(secondCam.transform.position.y - movementSpeed * 2, 2.5f, 6f), secondCam.transform.position.z);
             }
         }
     }
