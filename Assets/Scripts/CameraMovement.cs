@@ -18,6 +18,10 @@ public class CameraMovement : MonoBehaviour
     public LayerMask allUI;
     public Camera UICamera;
 
+    public GameObject startUI;
+    public GameObject cinemaButtonOn;
+    public GameObject cinemaButtonOff;
+
     private void Start()
     {
         UICamera.cullingMask = noUI;
@@ -25,9 +29,11 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && StartMenu)
         {
             StartMenu = false;
+            startUI.SetActive(false);
+            cinemaButtonOff.SetActive(true);
             UICamera.cullingMask = allUI;
         }
 
@@ -93,5 +99,19 @@ public class CameraMovement : MonoBehaviour
     {
         mainCam.SetActive(!mainCam.activeSelf);
         secondCam.SetActive(!secondCam.activeSelf);
+    }
+
+    public void CinemaModeOn()
+    {
+        UICamera.cullingMask = noUI;
+        cinemaButtonOn.SetActive(false);
+        cinemaButtonOff.SetActive(true);
+    }
+
+    public void CinemaModeOff()
+    {
+        UICamera.cullingMask = allUI;
+        cinemaButtonOn.SetActive(true);
+        cinemaButtonOff.SetActive(false);
     }
 }

@@ -15,6 +15,8 @@ public class ArmMovement : MonoBehaviour
     SavedPositions savedPoints; // Reference to the saved Positions parent
 
     public float speed;
+    float speedMulti = 1f;
+    public TextMeshProUGUI speedText;
 
     public Transform gripA;
     public Transform gripB;
@@ -418,6 +420,56 @@ public class ArmMovement : MonoBehaviour
 
             LoadPnl.SetActive(false);
         }
+    }
+
+    public void SpeedUp()
+    {
+        switch (speedMulti)
+        {
+            case 0.5f:
+                speedMulti = 1f;
+                speed = speedMulti;
+                break;
+            case 1:
+                speedMulti = 2;
+                speed = speedMulti;
+                break;
+            case 2:
+                speedMulti = 3;
+                speed = speedMulti;
+                break;
+            case 3:
+                speedMulti = 3;
+                speed = speedMulti;
+                break;
+        }
+
+        speedText.text = $"Speed: x{speed}";
+        Debug.Log("DO!");
+    }
+
+    public void SlowDown()
+    {
+        switch (speedMulti)
+        {
+            case 0.5f:
+                speedMulti = 0.5f;
+                speed = speedMulti;
+                break;
+            case 1:
+                speedMulti = 0.5f;
+                speed = speedMulti;
+                break;
+            case 2:
+                speedMulti = 1;
+                speed = speedMulti;
+                break;
+            case 3:
+                speedMulti = 2;
+                speed = speedMulti;
+                break;
+        }
+        speedText.text = $"Speed: x{speed}";
     }
 
     private void ResetApp()
