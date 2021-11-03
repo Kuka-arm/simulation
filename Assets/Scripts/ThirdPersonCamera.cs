@@ -6,12 +6,13 @@ public class ThirdPersonCamera : MonoBehaviour
 {
 	public float minX = -50f;
 	public float maxX = 50f;
+	public bool active = false;
 
 	public float sensitivity;
 	public Camera cam;
 
-	float rotY = 0f;
-	float rotX = 0f;
+	float rotY;
+	float rotX;
 
 	void Start()
 	{
@@ -21,6 +22,11 @@ public class ThirdPersonCamera : MonoBehaviour
 
 	void Update()
 	{
+        if (!active)
+        {
+			return;
+        }
+
 		rotY += Input.GetAxis("Mouse X") * sensitivity;
 		rotX += Input.GetAxis("Mouse Y") * sensitivity;
 		rotX = Mathf.Clamp(rotX, minX, maxX);

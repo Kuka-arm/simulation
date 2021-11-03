@@ -71,5 +71,6 @@ public class CameraMovement : MonoBehaviour
     {
         mainCam.SetActive(!mainCam.activeSelf);
         secondCam.SetActive(!secondCam.activeSelf);
+        secondCam.GetComponent<ThirdPersonCamera>().active = !secondCam.GetComponent<ThirdPersonCamera>().active;
     }
 }

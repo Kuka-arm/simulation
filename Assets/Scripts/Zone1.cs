@@ -8,6 +8,7 @@ public class Zone1 : MonoBehaviour
     public LayerMask layer;
     Color[] colors = new Color[] { Color.green, Color.red, Color.blue, Color.yellow };
 
+    public ParticleSystem slideParticles;
     void Start()
     {
         currentColor = 1; //Red
@@ -60,6 +61,7 @@ public class Zone1 : MonoBehaviour
         {
             //Debug.Log("A block entered a placement area");
             counter += 1;
+            slideParticles.Play();
         }
     }
 
