@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ArmMovement : MonoBehaviour
 {
@@ -15,15 +17,24 @@ public class ArmMovement : MonoBehaviour
     public Transform gripA;
     public Transform gripB;
     public Transform blockParent;
+    public Transform placedBlockParent;
     public Transform currentlyGripped;
     public Animator gripperAnimation;
     AnimatorClipInfo[] currentClipInfo;
+
+    public RenderTexture camRendTex;
+    public Image colorDisplayImg;
 
     // To apply rotation direction
     bool positive = true;
 
     public int gripping = 1; // 0 = busy, 1 = open, 2 = closed
     bool resetOpenGrip = false;
+
+    public bool ifActive = false;
+    public bool performIf = false;
+
+    public GameObject SavePnl, LoadPnl;
 
     void Start()
     {
@@ -91,14 +102,28 @@ public class ArmMovement : MonoBehaviour
             GripRelease();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    SaveData();
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    LoadData();
+        //}
+
+        if (Input.GetKeyDown(KeyCode.Delete))
         {
-            SaveData();
+            ResetApp();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            LoadData();
+            Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+            Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+
+            colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }
     }
 
@@ -253,7 +278,7 @@ public class ArmMovement : MonoBehaviour
         if (currentlyGripped != null)
         {
             currentlyGripped.GetComponent<Rigidbody>().isKinematic = false;
-            currentlyGripped.parent = blockParent;
+            currentlyGripped.parent = placedBlockParent;
         }
     }
 
@@ -320,15 +345,83 @@ public class ArmMovement : MonoBehaviour
         }
     }
 
+    public void GetColorFromBlock()
+    {
+        Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
+
+        Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+
+        colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
+    }
+
+    public void SaveIfStart()
+    {
+        actions.Add(new IfStatement(1, Color.red));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void SaveIfEnd()
+    {
+        actions.Add(new IfStatement(2, Color.clear));
+
+        savedPoints.UpdateUI(actions.ToArray());
+    }
+
+    public void StartIf()
+    {
+        ifActive = true;
+    }
+
+    public void EndIf()
+    {
+        ifActive = false;
+    }
+
     public void SaveData()
     {
         SaveData data = new SaveData(actions);
         SaveLoad.Save(data);
+        StartCoroutine(UiFade(1));
     }
 
     public void LoadData()
     {
         actions = SaveLoad.Load().actions;
         savedPoints.UpdateUI(actions.ToArray());
+        StartCoroutine(UiFade(0));
+    }
+
+    IEnumerator UiFade(int panel)
+    {
+        SavePnl.SetActive(false);
+        LoadPnl.SetActive(false);
+
+        if (panel == 1)
+        {
+            SavePnl.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            SavePnl.SetActive(false);
+        }
+        else
+        {
+            LoadPnl.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            LoadPnl.SetActive(false);
+        }
+    }
+
+    private void ResetApp()
+    {
+        CountBlocks.counter = 0;
+        Zone1.counter = 0;
+        Zone2.counter = 0;
+        Zone3.counter = 0;
+        Zone4.counter = 0;
+        SceneManager.LoadScene("SampleScene");
     }
 }

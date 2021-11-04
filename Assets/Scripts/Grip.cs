@@ -16,7 +16,7 @@ public class Grip : Action
         }
         else if (Grip == 2)
         {
-            kuka.GetComponent<ArmMovement>().GripRelease();
+            kuka.GetComponent<ArmMovement>().GripRelease(); // Open gripper
         }
     }
 }

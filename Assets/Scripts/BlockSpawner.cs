@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    // made these variables global
-    public static int count = 0;
-    public static int counter = 0;
-
     [Header("References")]
     public GameObject blockPrefab;
     public Transform blockSpawnPoint;
+    public Transform blockParent;
+
+    public static int totalBlocks =0, blockCounter =0;
 
     public void Update()
     {
@@ -20,19 +20,20 @@ public class BlockSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnBlock()
+    public void SpawnBlock(int number)
     {
-<<<<<<< Updated upstream
-        GameObject newblock = Instantiate(blockPrefab, blockSpawnPoint.position, blockSpawnPoint.rotation, transform);
-=======
         StartCoroutine(spawnUserAmount(number));
     }
     IEnumerator spawnUserAmount(int numberBlocks)
     {
+        int count = 0;
+        int counter = 0;
 
+        totalBlocks = numberBlocks;
 
         while (counter < numberBlocks)
         {
+            blockCounter = count;
             Transform[] spawnBlocks = blockParent.Cast<Transform>().ToArray();
             count = spawnBlocks.Length;
 
@@ -44,13 +45,13 @@ public class BlockSpawner : MonoBehaviour
                 Renderer renderer = newblock.GetComponentInChildren<Renderer>();
                 renderer.material.color = newColor;
 
-                counter++;
+                counter++;       
             }
             else
             {
                 yield return new WaitForSeconds(1f);
             }
         }
->>>>>>> Stashed changes
+        blockCounter++;
     }
 }

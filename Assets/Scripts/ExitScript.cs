@@ -16,9 +16,9 @@ public class ExitScript : MonoBehaviour
         
     }
 
-    public void Exit()
+    public void ExitApplication()
     {
         Application.Quit();
-        //The simulator needs to be built for this to work
     }
+
 }
