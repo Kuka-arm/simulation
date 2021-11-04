@@ -10,6 +10,13 @@ public class ArmPiece : MonoBehaviour
 
     public bool completed; // Did it reach its target?
 
+    ArmMovement armMov;
+
+    private void Awake()
+    {
+        armMov = GameObject.FindGameObjectWithTag("Kuka").GetComponent<ArmMovement>();
+    }
+
     private void Start()
     {
         // Gets original pos and keeps the target neutral
@@ -21,7 +28,7 @@ public class ArmPiece : MonoBehaviour
     void Update()
     {
         // Smoothly rotates to the target
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, target, 1f * Time.deltaTime);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, target, armMov.speed * Time.deltaTime);
 
         // Checks if target is reached
         if (Quaternion.Angle(transform.localRotation, target) <= 1f)

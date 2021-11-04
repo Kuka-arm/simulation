@@ -13,8 +13,36 @@ public class CameraMovement : MonoBehaviour
     public GameObject mainCam;
     public GameObject secondCam;
 
+    public static bool StartMenu = true;
+    public LayerMask noUI;
+    public LayerMask allUI;
+    public Camera UICamera;
+
+    public GameObject startUI;
+    public GameObject cinemaButtonOn;
+    public GameObject cinemaButtonOff;
+
+    private void Start()
+    {
+        UICamera.cullingMask = noUI;
+    }
+
     void Update()
     {
+        if (Input.anyKeyDown && StartMenu)
+        {
+            StartMenu = false;
+            startUI.SetActive(false);
+            cinemaButtonOff.SetActive(true);
+            UICamera.cullingMask = allUI;
+        }
+
+        if (StartMenu)
+        {
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + 0.2f, transform.localRotation.eulerAngles.z);
+            return;
+        }
+
         float rotationSpeed = rotSpeed * Time.deltaTime;
         float movementSpeed = movSpeed * Time.deltaTime;
 
@@ -72,5 +100,19 @@ public class CameraMovement : MonoBehaviour
         mainCam.SetActive(!mainCam.activeSelf);
         secondCam.SetActive(!secondCam.activeSelf);
         secondCam.GetComponent<ThirdPersonCamera>().active = !secondCam.GetComponent<ThirdPersonCamera>().active;
+    }
+
+    public void CinemaModeOn()
+    {
+        UICamera.cullingMask = noUI;
+        cinemaButtonOn.SetActive(false);
+        cinemaButtonOff.SetActive(true);
+    }
+
+    public void CinemaModeOff()
+    {
+        UICamera.cullingMask = allUI;
+        cinemaButtonOn.SetActive(true);
+        cinemaButtonOff.SetActive(false);
     }
 }

@@ -14,6 +14,10 @@ public class ArmMovement : MonoBehaviour
 
     SavedPositions savedPoints; // Reference to the saved Positions parent
 
+    public float speed;
+    float speedMulti = 1f;
+    public TextMeshProUGUI speedText;
+
     public Transform gripA;
     public Transform gripB;
     public Transform blockParent;
@@ -45,6 +49,9 @@ public class ArmMovement : MonoBehaviour
 
     void Update()
     {
+        if (CameraMovement.StartMenu)
+            return;
+
         // Checks for input to rotate arm parts
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -121,7 +128,7 @@ public class ArmMovement : MonoBehaviour
         {
             Texture2D tex2d = SaveLoad.toTex2d(camRendTex);
 
-            Color[] colors = { Color.green, Color.blue, Color.red, Color.yellow };
+            Color[] colors = { Color.green, Color.blue, Color.red };
 
             colorDisplayImg.color = ColorPicker.FindNearestColor(colors, tex2d.GetPixel(95, 20));
         }
@@ -413,6 +420,56 @@ public class ArmMovement : MonoBehaviour
 
             LoadPnl.SetActive(false);
         }
+    }
+
+    public void SpeedUp()
+    {
+        switch (speedMulti)
+        {
+            case 0.5f:
+                speedMulti = 1f;
+                speed = speedMulti;
+                break;
+            case 1:
+                speedMulti = 2;
+                speed = speedMulti;
+                break;
+            case 2:
+                speedMulti = 3;
+                speed = speedMulti;
+                break;
+            case 3:
+                speedMulti = 3;
+                speed = speedMulti;
+                break;
+        }
+
+        speedText.text = $"Speed: x{speed}";
+        Debug.Log("DO!");
+    }
+
+    public void SlowDown()
+    {
+        switch (speedMulti)
+        {
+            case 0.5f:
+                speedMulti = 0.5f;
+                speed = speedMulti;
+                break;
+            case 1:
+                speedMulti = 0.5f;
+                speed = speedMulti;
+                break;
+            case 2:
+                speedMulti = 1;
+                speed = speedMulti;
+                break;
+            case 3:
+                speedMulti = 2;
+                speed = speedMulti;
+                break;
+        }
+        speedText.text = $"Speed: x{speed}";
     }
 
     private void ResetApp()

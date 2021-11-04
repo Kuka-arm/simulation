@@ -9,6 +9,12 @@ public class SavedPositions : MonoBehaviour
 {
     public GameObject positionNode; // Reference of the spawned UI prefab
     public Transform positionParent; // Reference of the saved position parent
+    RectTransform rectTrans;
+
+    private void Start()
+    {
+        rectTrans = GetComponent<RectTransform>();
+    }
 
     // Update the saved point UI
     public void UpdateUI(Action[] position)
@@ -174,21 +180,24 @@ public class SavedPositions : MonoBehaviour
 
     void ResizePanelUp()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
+        rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, rectTrans.anchoredPosition.y + 15f);
         GetComponent<RectTransform>().sizeDelta += new Vector2(0, 30f);
         positionParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 30f);
     }
 
     public void ResizePanelDown()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y - 15f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, transform.position.y - 15f, transform.position.z);
+        rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, rectTrans.anchoredPosition.y - 15f);
         GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 30f);
         positionParent.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 30f);
     }
 
     void ResetPanel()
     {
-        transform.position = new Vector3(transform.position.x, 40f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, 40f, transform.position.z);
+        rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, 40);
         GetComponent<RectTransform>().sizeDelta = new Vector2(400f, 80f);
         positionParent.GetComponent<RectTransform>().sizeDelta = new Vector2(380f, 0);
     }
