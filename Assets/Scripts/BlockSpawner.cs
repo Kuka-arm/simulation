@@ -10,6 +10,8 @@ public class BlockSpawner : MonoBehaviour
     public Transform blockSpawnPoint;
     public Transform blockParent;
 
+    public static int totalBlocks =0, blockCounter =0;
+
     public void Update()
     {
         if (Input.GetKey(KeyCode.ScrollLock))
@@ -27,8 +29,11 @@ public class BlockSpawner : MonoBehaviour
         int count = 0;
         int counter = 0;
 
+        totalBlocks = numberBlocks;
+
         while (counter < numberBlocks)
         {
+            blockCounter = count;
             Transform[] spawnBlocks = blockParent.Cast<Transform>().ToArray();
             count = spawnBlocks.Length;
 
@@ -40,12 +45,13 @@ public class BlockSpawner : MonoBehaviour
                 Renderer renderer = newblock.GetComponentInChildren<Renderer>();
                 renderer.material.color = newColor;
 
-                counter++;
+                counter++;       
             }
             else
             {
                 yield return new WaitForSeconds(1f);
             }
         }
+        blockCounter++;
     }
 }
