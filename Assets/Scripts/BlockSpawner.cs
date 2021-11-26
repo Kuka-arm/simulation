@@ -33,7 +33,7 @@ public class BlockSpawner : MonoBehaviour
 
         while (counter < numberBlocks)
         {
-            blockCounter = count;
+            blockCounter = counter;
             Transform[] spawnBlocks = blockParent.Cast<Transform>().ToArray();
             count = spawnBlocks.Length;
 
