@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06c0e0ba61ee8204c808e9d4334c149f, type: 3}
-  m_Name: Play Sequence
+  m_Name: 13
   m_EditorClassIdentifier: 
-  title: Play Sequence
-  image: {fileID: 21300000, guid: 54809a8a0079d2040ba44d7a881279b0, type: 3}
-  description: This is the play sequence and it plays
-  orientation: 1
+  title: Cinema Mode
+  image: {fileID: 21300000, guid: b46a28ab36a6ba74bbead5ec8a8e8d67, type: 3}
+  description: This button hides the UI to allow to get a better view of the arm
+    and what its doing. It can be combined with the "Switch View" button for a better
+    experience.
+  orientation: 0
