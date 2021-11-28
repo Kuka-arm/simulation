@@ -445,7 +445,7 @@ public class ArmMovement : MonoBehaviour
         }
 
         speedText.text = $"Speed: x{speed}";
-        Debug.Log("DO!");
+        //Debug.Log("DO!");
     }
 
     public void SlowDown()
@@ -464,7 +464,7 @@ public class ArmMovement : MonoBehaviour
                 speedMulti = 1;
                 speed = speedMulti;
                 break;
-            case 3:
+            case 2.5f:
                 speedMulti = 2;
                 speed = speedMulti;
                 break;
