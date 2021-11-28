@@ -20,6 +20,6 @@ public class CountBlocks : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 250, 120), "Total Blocks To Spawn:" + SpawnBlockCounter.totalBlocks.ToString() + "\n" + "Remaining Blocks To Spawn:" + SpawnBlockCounter.spawnQueue.ToString() + "\n" + "------Placed Blocks------" + "\n"  + "Blocks Placed In All Zones:" + counter.ToString() + "\n" + "Blocks Placed In Zone 1:" + Zone1.counter.ToString() + "\n" + "Blocks Placed In Zone 2:" + Zone2.counter.ToString() + "\n" + "Blocks Placed In Zone 3:" + Zone3.counter.ToString() + "\n" /*+ "Blocks Placed In Zone 4:" + Zone4.counter.ToString() + "\n"*/);
+        //GUI.Box(new Rect(10, 10, 250, 120), "Total Blocks To Spawn:" + SpawnBlockCounter.totalBlocks.ToString() + "\n" + "Remaining Blocks To Spawn:" + SpawnBlockCounter.spawnQueue.ToString() + "\n" + "------Placed Blocks------" + "\n"  + "Blocks Placed In All Zones:" + counter.ToString() + "\n" + "Blocks Placed In Zone 1:" + Zone1.counter.ToString() + "\n" + "Blocks Placed In Zone 2:" + Zone2.counter.ToString() + "\n" + "Blocks Placed In Zone 3:" + Zone3.counter.ToString() + "\n" /*+ "Blocks Placed In Zone 4:" + Zone4.counter.ToString() + "\n"*/);
     }
 }

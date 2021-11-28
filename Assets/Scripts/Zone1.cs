@@ -19,16 +19,16 @@ public class Zone1 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100, layer))
-            {
-                currentColor = (currentColor + 1) % length;
-                hit.transform.GetComponent<Renderer>().material.color = colors[currentColor];
-            }
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, 100, layer))
+        //    {
+        //        currentColor = (currentColor + 1) % length;
+        //        hit.transform.GetComponent<Renderer>().material.color = colors[currentColor];
+        //    }
+        //}
     }
 
     public static int counter = 0;

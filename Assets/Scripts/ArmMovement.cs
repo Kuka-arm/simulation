@@ -435,11 +435,11 @@ public class ArmMovement : MonoBehaviour
                 speed = speedMulti;
                 break;
             case 2:
-                speedMulti = 3;
+                speedMulti = 2.5f;
                 speed = speedMulti;
                 break;
             case 3:
-                speedMulti = 3;
+                speedMulti = 2.5f;
                 speed = speedMulti;
                 break;
         }

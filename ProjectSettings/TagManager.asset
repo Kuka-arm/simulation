@@ -13,6 +13,7 @@ TagManager:
   - SavedPoints
   - Kuka
   - block
+  - Counters
   layers:
   - Default
   - TransparentFX
