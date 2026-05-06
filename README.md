@@ -1,4 +1,3 @@
-
 # KUKA Arm Simulation
 
 This project is a Unity-based simulation of a KUKA robotic arm equipped with a gripper and a camera. The arm automatically sorts colored blocks by picking and placing them into designated areas based on their color, demonstrating basic robotics, automation, and computer vision concepts.
@@ -45,7 +44,7 @@ This project is a Unity-based simulation of a KUKA robotic arm equipped with a g
 - `Assets/Scenes/` — Main Unity scenes
 
 ## Credits
-Developed as a university project (2021) by Tian Bornman, BrandonFrade, Kylevan Niekerk.
+Developed as a university project (2021) by Tian Bornman, BrandonFrade, Kyle van Niekerk.
 
 ## License
-This project is for educational and demonstration purposes. See LICENSE file if present.
+This project is for educational and demonstration purposes.
