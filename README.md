@@ -1,13 +1,15 @@
 # KUKA Arm Simulation
 
-This project is a Unity-based simulation of a KUKA robotic arm equipped with a gripper and a camera. The arm automatically sorts colored blocks by picking and placing them into designated areas based on their color, demonstrating basic robotics, automation, and computer vision concepts.
+This C# project is a Unity-based simulation of a KUKA robotic arm equipped with a gripper and a camera. The arm automatically sorts coloured blocks by picking and placing them into designated areas based on their colour, demonstrating foundational robotics, automation, and computer vision concepts.
+
+Originally conceptualized for physical hardware integration, the project was strategically pivoted to a Unity 3D simulation to overcome unforeseen hardware and time constraints, resulting in a robust, versatile virtual testing environment.
 
 ## Features
 - Simulates a 6-axis KUKA robotic arm with realistic movement
 - Functional gripper for picking and placing blocks
-- Camera system for color detection and sorting
+- Camera system for colour detection and sorting
 - Automatic and manual control modes
-- Block spawning and color-based sorting
+- Block spawning and colour-based sorting
 - User interface for controlling and monitoring the simulation
 
 ## Demo
@@ -15,8 +17,20 @@ This project is a Unity-based simulation of a KUKA robotic arm equipped with a g
 
 ## Screenshots
 <!-- Add screenshots of the simulation here -->
-![Simulation Screenshot 1](docs/screenshot1.png)
-![Simulation Screenshot 2](docs/screenshot2.png)
+![Simulation Screenshot 1](Documentation/Images/Instructions.png)
+<br>
+Instructions for the arm and mounted camera can be saved and loaded
+<br>
+<br>
+![Simulation Screenshot 2](Documentation/Images/Blocks.png)
+<br>
+Randomly coloured blocks are spawned on a chute and fed towards the arm and mounted camera
+<br>
+<br>
+![Simulation Screenshot 2](Documentation/Images/Scene.png)
+<br>
+The full scene showing the block chute, arm, and the stacks that the blocks are sorted into based on their colour
+<br>
 
 ## Requirements
 - Unity Editor **2021.2.0f1** (or compatible with minor adjustments)
@@ -44,7 +58,7 @@ This project is a Unity-based simulation of a KUKA robotic arm equipped with a g
 - `Assets/Scenes/` — Main Unity scenes
 
 ## Credits
-Developed as a university project (2021) by Tian Bornman, BrandonFrade, Kyle van Niekerk.
+Developed as a university project (2021) by Tian Bornman, Brandon Frade, Kyle van Niekerk.
 
 ## License
 This project is for educational and demonstration purposes.
